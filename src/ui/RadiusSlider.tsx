@@ -4,9 +4,9 @@ import {useState} from "react";
 export default function RadiusSlider({ onValueCommit, defaultValue }: {onValueCommit: (value: number[]) => void; defaultValue: number[]; }) {
     const [value, setValue] = useState<number>(defaultValue[0]);
     return (
-        <div>
+        <div className="flex flex-col items-center">
             <Slider.Root
-                className="relative flex h-5 w-[200px] touch-none select-none items-center"
+                className="relative flex h-5 w-[200px] touch-none select-none items-center hover:drop-shadow-lg transition-shadows duration-600"
                 defaultValue={defaultValue}
                 min={10}
                 max={100}
@@ -17,15 +17,15 @@ export default function RadiusSlider({ onValueCommit, defaultValue }: {onValueCo
                     setValue(values[0]);
                 }}
             >
-                <Slider.Track className="relative h-[3px] grow rounded-full bg-foreground-lc">
-                    <Slider.Range className="absolute h-full rounded-full bg-foreground"/>
+                <Slider.Track className="relative h-[3px] grow rounded-full bg-mono-700 dark:bg-mono-200">
+                    <Slider.Range className="absolute h-full rounded-full bg-mono-800 dark:bg-mono-50"/>
                 </Slider.Track>
                 <Slider.Thumb
-                    className="block size-5 rounded-[10px] bg-foreground shadow-[0_2px_10px] hover:bg-foreground-lc focus:shadow-[0_0_0_5px] focus:outline-none"
+                    className="block size-5 rounded-[10px] bg-mono-800 dark:bg-mono-50 selectable focus:outline-hidden"
                     aria-label="Radius"
                 />
             </Slider.Root>
-            {value}
+            <p>Radius: {value}</p>
         </div>
     )
 }

@@ -4,7 +4,7 @@ export type Tournament = {
     slug: string;
     startAt: number;
     images: Array<{
-        type: string;
+        type: "profile" | "banner";
         url: string;
         width: number;
         height: number;

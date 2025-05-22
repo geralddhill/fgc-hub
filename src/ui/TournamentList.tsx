@@ -15,20 +15,30 @@ export default async function TournamentList({ query, location, radius, currentP
     const totalPages = response.data.pageInfo.totalPages;
     const tournaments: Array<Tournament> = response.data.nodes;
     const tournamentElements = tournaments.map((tournament) => {
-        const profile = () => {
-            const res: Thumbnail = {
-                url: "icon.svg",
-                width: 500,
-                height: 500
+        const profile: Thumbnail = {
+            url: "icon.svg",
+            width: 500,
+            height: 500
+        }
+        const banner: Thumbnail = {
+            url: "icon.svg",
+            width: 1000,
+            height: 500
+        };
+        for (const img of tournament.images) {
+            if (img.type === "profile") {
+                profile.url = img.url;
+                profile.width = img.width;
+                profile.height = img.height;
+                banner.url = img.url;
+                banner.width = img.width;
+                banner.height = img.height;
             }
-            for (const img of tournament.images) {
-                if (img.type === "profile") {
-                    res.url = img.url;
-                    res.width = img.width;
-                    res.height = img.height;
-                }
+            else {
+                banner.url = img.url;
+                banner.width = img.width;
+                banner.height = img.height;
             }
-            return res;
         }
 
         const state = tournament.countryCode === "US" ? tournament.addrState : tournament.countryCode;
@@ -36,13 +46,13 @@ export default async function TournamentList({ query, location, radius, currentP
 
         return (<li key={tournament.id}>
             <TournamentCard name={tournament.name} slug={tournament.slug} startTime={new Date(tournament.startAt * 1000)}
-                            thumbnail={profile()} state={state} city={tournament.city} isOnline={tournament.isOnline}
-                            locationURL={locationURL} className="m-4" />
+                            profile={profile} banner={banner} state={state} city={tournament.city} isOnline={tournament.isOnline}
+                            locationURL={locationURL} address={tournament.venueAddress} />
         </li>)
     })
 
     return (<div className="flex flex-col items-center">
-        <ul className="flex flex-wrap justify-center">{tournamentElements}</ul>
+        <ul className="flex flex-col items-center">{tournamentElements}</ul>
         <Pagination totalPages={totalPages} />
     </div>);
 }

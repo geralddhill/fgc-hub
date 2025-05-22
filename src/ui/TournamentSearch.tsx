@@ -53,19 +53,21 @@ export default function TournamentSearch() {
         replace(`${pathname}?${params.toString()}`);
     }, 300)
 
-    return (<div className="m-8">
-        <input
-            className="bg-stone-200 dark:bg-stone-700 font-big py-4 px-8 rounded-3xl w-144 focus:outline-hidden
-            focus:shadow-xl transition-shadow duration-600"
-            name="query"
-            placeholder="Search for tournaments"
-            defaultValue={searchParams.get('q')?.toString()}
-            onChange={(e) => {
-                handleQuery(e.target.value);
-            }}
-        />
-        <button onClick={handleLocation} className="btn2">Use my location</button>
-        {showRadius && <RadiusSlider defaultValue={[Number(searchParams.get('r')?.slice(0, -2) || 20)]}
-                       onValueCommit={handleRadius}/>}
+    return (<div className="w-full bg-mono-300 dark:bg-mono-900 p-8 flex justify-center items-center space-x-8">
+            <input
+                className="bg-mono-200 dark:bg-mono-700 font-big py-4 px-8 rounded-3xl w-144 focus:outline-hidden
+                focus:shadow-md/25 focus:scale-105 selectable"
+                name="query"
+                placeholder="Search for tournaments"
+                defaultValue={searchParams.get('q')?.toString()}
+                onChange={(e) => {
+                    handleQuery(e.target.value);
+                }}
+            />
+            <div className="flex flex-col items-center space-y-4">
+                <button onClick={handleLocation} className="btn1 selectable">Use my location</button>
+                {showRadius && <RadiusSlider defaultValue={[Number(searchParams.get('r')?.slice(0, -2) || 20)]}
+                                onValueCommit={handleRadius}/>}
+            </div>
     </div>)
 }
