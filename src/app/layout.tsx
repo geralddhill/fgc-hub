@@ -7,7 +7,7 @@ export const metadata: Metadata = {
       template: "%s | FGC Hub",
       default: "FGC Hub"
   },
-  description: "One stop shop for your fighting game needs!",
+  description: "Your one stop shop for your fighting game needs!",
 };
 
 export default function RootLayout({

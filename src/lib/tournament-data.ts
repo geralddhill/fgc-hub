@@ -96,7 +96,7 @@ export async function fetchTournamentData( query: string, location: string | nul
         }
 
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         return {
             message: "Tournaments fetched successfully.",
             data: json.data.tournaments

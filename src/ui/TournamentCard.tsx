@@ -4,7 +4,6 @@ import {months} from "@/lib/types";
 import Image from 'next/image'
 import {Thumbnail} from "@/lib/types";
 import React, {MouseEventHandler} from "react";
-import clsx from "clsx";
 
 export default function TournamentCard({ name, slug, startTime, profile, banner, isOnline, city, state, address, locationURL}:
 {name: string; slug: string; startTime: Date; profile: Thumbnail; banner: Thumbnail; isOnline: boolean; city?: string | null; state?: string | null;
@@ -31,6 +30,7 @@ export default function TournamentCard({ name, slug, startTime, profile, banner,
                         {isOnline ? "Online" : <button className="font-pui text-mono-600 dark:text-mono-200 cursor-pointer"
                                                        onClick={stopPropogation}><a href={locationURL} target="_blank">{expanded ? address : `${city}, ${state}`}</a></button>}
                     </div>
+                {slug && <button className="btn1 m-4"><a href={`https://www.start.gg/${slug}`} target="_blank">View on start.gg</a></button>}
                 </div>
         </div>)
     }

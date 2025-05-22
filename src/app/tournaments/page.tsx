@@ -1,5 +1,10 @@
 import TournamentList from "@/ui/TournamentList";
 import TournamentSearch from "@/ui/TournamentSearch";
+import type {Metadata} from "next";
+
+export const metadata: Metadata = {
+    title: "Tournaments",
+}
 
 export default async function Page(props: {
     searchParams?: Promise<{
