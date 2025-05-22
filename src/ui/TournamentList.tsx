@@ -16,12 +16,12 @@ export default async function TournamentList({ query, location, radius, currentP
     const tournaments: Array<Tournament> = response.data.nodes;
     const tournamentElements = tournaments.map((tournament) => {
         const profile: Thumbnail = {
-            url: "icon.svg",
+            url: "/default_tournament_profile.png",
             width: 500,
             height: 500
         }
         const banner: Thumbnail = {
-            url: "icon.svg",
+            url: "/default_tournament_banner.png",
             width: 1000,
             height: 500
         };
