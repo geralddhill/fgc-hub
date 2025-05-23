@@ -1,6 +1,7 @@
-import TournamentList from "@/ui/TournamentList";
+import {TournamentList, TournamentListSkeleton} from "@/ui/TournamentList";
 import TournamentSearch from "@/ui/TournamentSearch";
 import type {Metadata} from "next";
+import {Suspense} from "react";
 
 export const metadata: Metadata = {
     title: "Tournaments",
@@ -22,6 +23,8 @@ export default async function Page(props: {
 
     return (<div>
         <TournamentSearch />
-        <TournamentList query={query} location={location} radius={radius} currentPage={currentPage} />
+        <Suspense key={JSON.stringify(searchParams)} fallback={<TournamentListSkeleton/>}>
+            <TournamentList query={query} location={location} radius={radius} currentPage={currentPage} />
+        </Suspense>
     </div>);
 }

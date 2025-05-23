@@ -1,10 +1,10 @@
 import {fetchTournamentData, Tournament} from "@/lib/tournament-data";
-import TournamentCard from "@/ui/TournamentCard";
+import {TournamentCard, TournamentCardSkeleton} from "@/ui/TournamentCard";
 import Pagination from "@/ui/Pagination";
 import {Thumbnail} from "@/lib/types";
 import {generateMapsURL} from "@/lib/utils";
 
-export default async function TournamentList({ query, location, radius, currentPage }:
+export async function TournamentList({ query, location, radius, currentPage }:
 {query: string; location: string | null; radius: string; currentPage: number;}) {
     const response = await fetchTournamentData(query, location, radius, currentPage);
     if (!response.data) {
@@ -30,15 +30,17 @@ export default async function TournamentList({ query, location, radius, currentP
                 profile.url = img.url;
                 profile.width = img.width;
                 profile.height = img.height;
-                banner.url = img.url;
-                banner.width = img.width;
-                banner.height = img.height;
             }
             else {
                 banner.url = img.url;
                 banner.width = img.width;
                 banner.height = img.height;
             }
+        }
+        if (banner.url === "/default_tournament_banner.png" && profile.url !== "/default_tournament_profile.png") {
+            banner.url = profile.url;
+            banner.width = profile.width;
+            banner.height = profile.height;
         }
 
         const state = tournament.countryCode === "US" ? tournament.addrState : tournament.countryCode;
@@ -55,4 +57,17 @@ export default async function TournamentList({ query, location, radius, currentP
         <ul className="flex flex-col items-center">{tournamentElements}</ul>
         <Pagination totalPages={totalPages} />
     </div>);
+}
+
+export function TournamentListSkeleton() {
+    return (<div className="flex flex-col items-center">
+        <ul className="flex flex-col items-center">
+            <TournamentCardSkeleton />
+            <TournamentCardSkeleton />
+            <TournamentCardSkeleton />
+            <TournamentCardSkeleton />
+            <TournamentCardSkeleton />
+            <TournamentCardSkeleton />
+        </ul>
+    </div>)
 }

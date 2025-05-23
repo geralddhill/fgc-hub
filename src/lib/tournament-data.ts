@@ -27,7 +27,7 @@ type Response = {
     };
 }
 
-const ENTRIES_PER_PAGE = 6;
+export const ENTRIES_PER_PAGE = 6;
 
 export async function fetchTournamentData( query: string, location: string | null, radius: string, currentPage: number ):Promise<Response> {
     const authKey = process.env.START_GG_API_KEY;
