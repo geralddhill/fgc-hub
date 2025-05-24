@@ -17,7 +17,7 @@ export type Tournament = {
     mapsPlaceId: string | null;
 }
 
-type Response = {
+type TournamentResponse = {
     message?: string;
     data?: {
         pageInfo: {
@@ -27,14 +27,15 @@ type Response = {
     };
 }
 
-export const ENTRIES_PER_PAGE = 6;
+export const TOURNAMENT_ENTRIES_PER_PAGE = 6;
 
-export async function fetchTournamentData( query: string, location: string | null, radius: string, currentPage: number ):Promise<Response> {
+export async function fetchTournamentData( query: string, location: string | null, radius: string, games: Array<number>,
+                                           currentPage: number ):Promise<TournamentResponse> {
     const authKey = process.env.START_GG_API_KEY;
     const url = "https://api.start.gg/gql/alpha";
     const body = {
         "query": `
-            query Tournaments($currentPage: Int, $perPage: Int, $searchQuery: String!) {
+            query Tournaments($currentPage: Int, $perPage: Int, $searchQuery: String!, $videogames: [ID]) {
               tournaments(query: {
                 page: $currentPage
                 perPage: $perPage
@@ -46,6 +47,7 @@ export async function fetchTournamentData( query: string, location: string | nul
                     distanceFrom: "${location}",
                     distance: "${radius}"
                   }` : ""}
+                  videogameIds: $videogames
                 }
               }) {
                 pageInfo {
@@ -73,8 +75,9 @@ export async function fetchTournamentData( query: string, location: string | nul
             }`,
         "variables": {
             "currentPage": currentPage,
-            "perPage": ENTRIES_PER_PAGE,
+            "perPage": TOURNAMENT_ENTRIES_PER_PAGE,
             "searchQuery": query,
+            "videogames": games
         }
     };
 
