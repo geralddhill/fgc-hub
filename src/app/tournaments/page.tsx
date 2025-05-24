@@ -1,7 +1,7 @@
 import {TournamentList, TournamentListSkeleton} from "@/ui/TournamentList";
-import TournamentSearch from "@/ui/TournamentSearch";
 import type {Metadata} from "next";
 import {Suspense} from "react";
+import SearchBar from "@/ui/SearchBar";
 
 export const metadata: Metadata = {
     title: "Tournaments",
@@ -22,7 +22,7 @@ export default async function Page(props: {
     const currentPage = Number(searchParams?.p) || 1;
 
     return (<div>
-        <TournamentSearch />
+        <SearchBar />
         <Suspense key={JSON.stringify(searchParams)} fallback={<TournamentListSkeleton/>}>
             <TournamentList query={query} location={location} radius={radius} currentPage={currentPage} />
         </Suspense>

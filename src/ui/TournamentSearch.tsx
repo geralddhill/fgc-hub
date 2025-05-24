@@ -53,7 +53,7 @@ export default function TournamentSearch() {
         replace(`${pathname}?${params.toString()}`);
     }, 300)
 
-    return (<div className="w-full bg-mono-300 dark:bg-mono-900 p-8 flex justify-center items-center space-x-8">
+    return (<div className="flex justify-center items-center space-x-8">
             <input
                 className="bg-mono-200 dark:bg-mono-700 font-big py-4 px-8 rounded-3xl w-144 focus:outline-hidden
                 focus:shadow-md/25 focus:scale-105 selectable"
