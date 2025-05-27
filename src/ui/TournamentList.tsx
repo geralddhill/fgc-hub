@@ -5,7 +5,7 @@ import {Thumbnail} from "@/lib/types";
 import {generateMapsURL} from "@/lib/utils";
 
 export async function TournamentList({ query, location, radius, games, currentPage }:
-{query: string; location: string | null; radius: string; games: Array<number>; currentPage: number;}) {
+{query: string; location: string | null; radius: string; games: Set<number>; currentPage: number;}) {
     const response = await fetchTournamentData(query, location, radius, games, currentPage);
     if (!response.data) {
         return (<div>

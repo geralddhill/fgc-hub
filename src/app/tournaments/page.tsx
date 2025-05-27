@@ -21,7 +21,7 @@ export default async function Page(props: {
     const location = searchParams?.l || null;
     const radius = searchParams?.r || "20mi";
     const currentPage = Number(searchParams?.p) || 1;
-    const games = JSON.parse(searchParams?.g || "[]")
+    const games: Set<number> = new Set(JSON.parse(searchParams?.g || "[]"))
 
     return (<div>
         <SearchBar />
