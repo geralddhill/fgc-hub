@@ -1,6 +1,6 @@
 import {fetchTournamentData, Tournament} from "@/lib/tournament-data";
-import {TournamentCard, TournamentCardSkeleton} from "@/ui/TournamentCard";
-import Pagination from "@/ui/Pagination";
+import {TournamentCard, TournamentCardSkeleton} from "@/ui/tournaments/TournamentCard";
+import Pagination from "@/ui/tournaments/Pagination";
 import {Thumbnail} from "@/lib/types";
 import {generateMapsURL} from "@/lib/utils";
 

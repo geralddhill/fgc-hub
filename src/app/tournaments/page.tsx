@@ -1,7 +1,7 @@
-import {TournamentList, TournamentListSkeleton} from "@/ui/TournamentList";
+import {TournamentList, TournamentListSkeleton} from "@/ui/tournaments/TournamentList";
 import type {Metadata} from "next";
 import {Suspense} from "react";
-import SearchBar from "@/ui/SearchBar";
+import SearchBar from "@/ui/tournaments/SearchBar";
 
 export const metadata: Metadata = {
     title: "Tournaments",

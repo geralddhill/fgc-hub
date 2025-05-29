@@ -3,7 +3,7 @@
 import React from "react";
 import {Chevron} from "@/ui/Icons";
 import clsx from "clsx";
-import VideoGameList from "@/ui/VideoGameList";
+import VideoGameList from "@/ui/tournaments/VideoGameList";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {idToVideoGame} from "@/lib/video-game-data";
 

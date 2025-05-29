@@ -3,7 +3,7 @@
 import {useDebouncedCallback} from "use-debounce";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import React from "react";
-import RadiusSlider from "@/ui/RadiusSlider";
+import RadiusSlider from "@/ui/tournaments/RadiusSlider";
 
 export default function TournamentSearch() {
     const searchParams = useSearchParams();
