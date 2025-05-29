@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "../../node_modules/tailwindcss";
 
 @theme inline {
   --font-sans: var(--font-lexend);
@@ -124,13 +124,13 @@
   .btn1 {
     @apply cursor-pointer bg-color-500 active:bg-color-600 border-color-500 active:border-color-600
     dark:bg-color-700 dark:active:bg-color-600 dark:border-color-700 dark:active:border-color-600
-    text-mono-50 px-6 py-2 rounded-lg
+    text-mono-50 px-6 py-2 rounded-3xl
     hover:shadow-xl transition-shadow duration-600;
   }
   .btn2 {
     @apply cursor-pointer border-color-500 text-color-500 active:border-color-600 active:text-color-600
     dark:border-color-600 dark:text-color-600 dark:active:border-color-500 dark:active:text-color-500
-    px-6 py-2 rounded-lg border-4 border-solid
+    px-6 py-2 rounded-3xl border-4 border-solid
     hover:shadow-xl transition-shadow duration-600;
   }
   .selectable {

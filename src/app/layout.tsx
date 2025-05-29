@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../ui/globals.css";
 import {lexend} from "@/ui/fonts";
+import Navbar from "@/ui/Navbar";
 
 export const metadata: Metadata = {
   title: {
@@ -20,7 +21,10 @@ export default function RootLayout({
         lang="en"
         className={`${lexend.variable} antialiased`}>
       <body>
-        {children}
+      <Navbar/>
+      <main className="mt-32 md:mt-40">
+          {children}
+      </main>
       </body>
     </html>
   );
