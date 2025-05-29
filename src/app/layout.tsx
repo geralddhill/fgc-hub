@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../ui/globals.css";
 import {lexend} from "@/ui/fonts";
 
 export const metadata: Metadata = {
