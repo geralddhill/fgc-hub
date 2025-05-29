@@ -26,3 +26,17 @@ export function Menu(props: SVGProps<SVGSVGElement>) {
         </svg>
     )
 }
+
+export function X(props: SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            data-name="Layer 1"
+            viewBox="0 0 350.63 350.63"
+            {...props}
+        >
+            <path d="M0 305.56 305.555.003l45.07 45.071L45.072 350.63z"/>
+            <path d="M0 45.06 45.07-.01l305.556 305.555-45.071 45.07z"/>
+        </svg>
+    )
+}
