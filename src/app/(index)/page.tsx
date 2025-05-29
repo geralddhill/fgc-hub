@@ -1,5 +1,30 @@
 export default async function Page() {
   return (<div>
-    <p>This is the landing page!</p>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
+    <h1 className="font-h1">This is the landing page!</h1>
   </div>);
 }
