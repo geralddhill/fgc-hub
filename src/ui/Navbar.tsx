@@ -7,6 +7,7 @@ import Link from "next/link";
 import {Menu, X} from "@/ui/Icons";
 import {usePathname} from "next/navigation";
 import useMediaQuery from "@/lib/hooks";
+import {ButtonPrimary} from "@/ui/Buttons";
 
 export default function Navbar() {
     const [isNavbarVisible, setIsNavbarVisible] = useState(true);
@@ -84,11 +85,13 @@ export default function Navbar() {
                         </Link>
                     </li>
                 ))}
-                <li className="md:h-full h-8 flex items-center my-2 md:ml-auto btn1"
+                <li className="md:h-full h-8 flex items-center my-2 md:ml-auto"
                     aria-current={pathname === "/" ? "page" : "false"} hidden={isMobile && !isMobileMenuOpen}>
-                    <Link href="/login">
-                        <h2 className="font-h4">Login</h2>
-                    </Link>
+                    <ButtonPrimary className="py-0 px-8 hover:shadow-xl transition-shadow">
+                        <Link href="/login">
+                            <h2 className="font-h4">Login</h2>
+                        </Link>
+                    </ButtonPrimary>
                 </li>
             </ul>
         </nav>

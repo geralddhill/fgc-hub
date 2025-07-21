@@ -4,6 +4,7 @@ import {useDebouncedCallback} from "use-debounce";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import React from "react";
 import RadiusSlider from "@/ui/tournaments/RadiusSlider";
+import {ButtonPrimary} from "@/ui/Buttons";
 
 export default function TournamentSearch() {
     const searchParams = useSearchParams();
@@ -65,7 +66,7 @@ export default function TournamentSearch() {
                 }}
             />
             <div className="flex flex-col items-center space-y-4">
-                <button onClick={handleLocation} className="btn1 selectable">Use my location</button>
+                <ButtonPrimary onClick={handleLocation} className="selectable">Use my location</ButtonPrimary>
                 {showRadius && <RadiusSlider defaultValue={[Number(searchParams.get('r')?.slice(0, -2) || 20)]}
                                 onValueCommit={handleRadius}/>}
             </div>
