@@ -6,6 +6,7 @@ import clsx from "clsx";
 import VideoGameList from "@/ui/tournaments/VideoGameList";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {idToVideoGame} from "@/lib/video-game-data";
+import {ButtonPrimary} from "@/ui/Buttons";
 
 export default function VideoGameFilter() {
     const [showList, setShowList] = React.useState(false);
@@ -53,12 +54,12 @@ export default function VideoGameFilter() {
 
     return (<fieldset className="w-48 flex flex-col items-center space-y-4">
         <legend>
-            <button className="inline-flex items-center justify-center space-x-2 btn1 selectable w-full" onClick={() => setShowList(!showList)}>
+            <ButtonPrimary className="inline-flex items-center justify-center space-x-2 selectable w-full" onClick={() => setShowList(!showList)}>
                 <p>{buttonText()}</p>
                 <Chevron className={clsx("w-4 fill-current transition-transform duration-500", {
                     "-rotate-180": showList
                 })} />
-            </button>
+            </ButtonPrimary>
         </legend>
         {showList && <VideoGameList onChange={handleFilter} checked={new Set(JSON.parse(searchParams.get('g') || "[]"))} />}
     </fieldset>)

@@ -1,3 +1,6 @@
+import {twMerge} from "tailwind-merge";
+import clsx, {ClassValue} from "clsx";
+
 export const generatePagination = (currentPage: number, totalPages: number) => {
     // If the total number of pages is 7 or less,
     // display all pages without any ellipsis.
@@ -39,4 +42,8 @@ export function generateMapsURL(address: string | null, placeId: string | null) 
     params.set("query", address);
     params.set("query_place_id", placeId);
     return `https://www.google.com/maps/search/?api=1&${params.toString()}`;
+}
+
+export function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
 }
