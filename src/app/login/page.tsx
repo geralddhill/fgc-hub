@@ -1,5 +1,6 @@
 export default function Page() {
-    return (<div>
-        <h1>This is the login page!</h1>
+    return (<div className="m-16 md:m-32">
+        <h1 className="font-h4">This is the login page!</h1>
+        <p>This page is still under construction!</p>
     </div>)
 }
