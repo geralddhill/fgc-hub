@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { generatePagination } from '@/lib/utils';
 import {usePathname, useSearchParams} from "next/navigation";
+import {Chevron} from "@/ui/Icons";
 
 export default function Pagination({ totalPages }: { totalPages: number }) {
     const pathname = usePathname();
@@ -19,7 +20,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
 
     return (
         <>
-            <div className="inline-flex">
+            <div className="inline-flex mb-4">
                 <PaginationArrow
                     direction="left"
                     href={createPageURL(currentPage - 1)}
@@ -69,12 +70,13 @@ function PaginationNumber({
     isActive: boolean;
 }) {
     const className = clsx(
-        'flex h-10 w-10 items-center justify-center text-sm border',
+        'flex h-10 w-10 items-center justify-center text-sm',
         {
             'rounded-l-md': position === 'first' || position === 'single',
             'rounded-r-md': position === 'last' || position === 'single',
-            'z-10 bg-blue-600 border-blue-600 text-white': isActive,
-            'hover:bg-gray-100': !isActive && position !== 'middle',
+            'z-10 bg-color-500 text-mono-50 dark:bg-color-700': isActive,
+            'bg-mono-200 dark:bg-mono-700': !isActive,
+            'hover:bg-mono-100 dark:hover:bg-mono-600': !isActive && position !== 'middle',
             'text-gray-300': position === 'middle',
         },
     );
@@ -98,10 +100,10 @@ function PaginationArrow({
     isDisabled?: boolean;
 }) {
     const className = clsx(
-        'flex h-10 w-10 items-center justify-center rounded-md border',
+        'flex h-10 w-10 items-center justify-center rounded-md bg-mono-200 dark:bg-mono-700',
         {
-            'pointer-events-none text-gray-300': isDisabled,
-            'hover:bg-gray-100': !isDisabled,
+            'pointer-events-none text-mono-400': isDisabled,
+            'hover:bg-mono-100 dark:hover:bg-mono-600': !isDisabled,
             'mr-2 md:mr-4': direction === 'left',
             'ml-2 md:ml-4': direction === 'right',
         },
@@ -109,9 +111,9 @@ function PaginationArrow({
 
     const icon =
         direction === 'left' ? (
-            <button className="w-4">Prev</button>
+            <button className="w-4"><Chevron className="fill-current rotate-90" /></button>
         ) : (
-            <button className="w-4">Next</button>
+            <button className="w-4"><Chevron className="fill-current rotate-270" /></button>
         );
 
     return isDisabled ? (
