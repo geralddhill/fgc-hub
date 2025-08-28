@@ -6,6 +6,12 @@ import {generateMapsURL} from "@/lib/utils";
 
 export async function TournamentList({ query, location, radius, games, currentPage }:
 {query: string; location: string | null; radius: string; games: Set<number>; currentPage: number;}) {
+    if (location == null) {
+        return (<div className="flex flex-col items-center">
+            <p>Please enable your location to find local tournaments near you!</p>
+        </div>)
+    }
+
     const response = await fetchTournamentData(query, location, radius, games, currentPage);
     if (!response.data) {
         return (<div>

@@ -15,7 +15,7 @@ export function TournamentCard({ name, slug, startTime, profile, banner, isOnlin
     const handleClick = () => {
         setExpanded(!expanded);
     }
-    const stopPropogation: MouseEventHandler = (e) => {
+    const stopPropagation: MouseEventHandler = (e) => {
         e.stopPropagation();
     }
 
@@ -28,9 +28,9 @@ export function TournamentCard({ name, slug, startTime, profile, banner, isOnlin
                         <h4 className="font-h4ui">{name.length <= 36 ? name : name.substring(0, 36) + "..."}</h4>
                         <p className="font-pui text-mono-600 dark:text-mono-200">{months[startTime.getMonth()]} {startTime.getDate()}, {startTime.getFullYear()}</p>
                         {isOnline ? "Online" : <button className="font-pui text-mono-600 dark:text-mono-200 cursor-pointer"
-                                                       onClick={stopPropogation}><a href={locationURL} target="_blank">{expanded ? address : `${city}, ${state}`}</a></button>}
+                                                       onClick={stopPropagation}><a href={locationURL} target="_blank">{expanded ? address : `${city}, ${state}`}</a></button>}
                     </div>
-                {slug && <ButtonPrimary onClick={stopPropogation} className="m-4"><a href={`https://www.start.gg/${slug}`} target="_blank">View on start.gg</a></ButtonPrimary>}
+                {slug && <ButtonPrimary onClick={stopPropagation} className="m-4"><a href={`https://www.start.gg/${slug}`} target="_blank">View on start.gg</a></ButtonPrimary>}
                 </div>
         </div>)
     }
@@ -45,7 +45,7 @@ export function TournamentCard({ name, slug, startTime, profile, banner, isOnlin
                     <span>{months[startTime.getMonth()]} {startTime.getDate()}, {startTime.getFullYear()}</span>
                     <span>{" | "}</span>
                     {isOnline ? "Online" : <button className="cursor-pointer"
-                                                   onClick={stopPropogation}><a href={locationURL}
+                                                   onClick={stopPropagation}><a href={locationURL}
                                                                                 target="_blank">{expanded ? address : `${city}, ${state}`}</a>
                     </button>}
                 </div>

@@ -51,7 +51,10 @@ export default function TournamentSearch() {
     }, 300)
 
     useEffect(() => {
-        handleLocation();
+        const params = new URLSearchParams(searchParams);
+        if (!params.get('l')) {
+            handleLocation();
+        }
     })
 
     const handleRadius = useDebouncedCallback((value: number[]) => {
