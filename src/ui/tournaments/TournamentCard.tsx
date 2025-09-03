@@ -50,10 +50,7 @@ export function TournamentCard({ name, slug, startTime, profile, banner, isOnlin
                 <p className="font-pui text-mono-600 dark:text-mono-300 ">
                     <span>{months[startTime.getMonth()]} {startTime.getDate()}, {startTime.getFullYear()}</span>
                     <span>{" | "}</span>
-                    {isOnline ? <span>Online</span> : <button className="cursor-pointer"
-                                                   onClick={stopPropagation}><a href={locationURL}
-                                                                                target="_blank">{expanded ? address : `${city}, ${state}`}</a>
-                    </button>}
+                    {isOnline ? <span>Online</span> : <a href={locationURL} target="_blank">{expanded ? address : `${city}, ${state}`}</a>}
                 </p>
                 <p className="font-pui my-2 text-color-500 dark:text-color-600 group-hover:text-mono-800 dark:group-hover:text-mono-50 transition duration-250">View
                     More</p>
