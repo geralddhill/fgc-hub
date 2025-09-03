@@ -1,25 +1,32 @@
+'use client'
+
 import {fetchTournamentData, Tournament} from "@/lib/tournament-data";
 import {TournamentCard, TournamentCardSkeleton} from "@/ui/tournaments/TournamentCard";
-import Pagination from "@/ui/tournaments/Pagination";
 import {Thumbnail} from "@/lib/types";
 import {generateMapsURL} from "@/lib/utils";
+import React from "react";
+import {ButtonPrimary} from "@/ui/Buttons";
 
-export async function TournamentList({ query, location, radius, games, currentPage }:
-{query: string; location: string | null; radius: string; games: Set<number>; currentPage: number;}) {
-    if (location == null) {
+export function TournamentList({ query, location, radius, games, initialTournaments, locationAllowed }:
+{query: string; location: string | null; radius: string; games: Set<number>; initialTournaments: Array<Tournament>;
+    locationAllowed: boolean;}) {
+
+    const [offset, setOffset] = React.useState(2)
+    const [tournaments, setTournaments] = React.useState(initialTournaments);
+
+    if (!locationAllowed) {
         return (<div className="flex flex-col items-center">
             <p>Please enable your location to find local tournaments near you!</p>
         </div>)
     }
 
-    const response = await fetchTournamentData(query, location, radius, games, currentPage);
-    if (!response.data) {
-        return (<div>
-            <p>{response.message}</p>
-        </div>)
+    const loadMoreTournaments = async () => {
+        const response = await fetchTournamentData(query, location, radius, games, offset);
+        const moreTournaments = response.data?.nodes || [];
+        setTournaments(users => [...users, ...moreTournaments])
+        setOffset(offset + 1)
     }
-    const totalPages = response.data.pageInfo.totalPages;
-    const tournaments: Array<Tournament> = response.data.nodes;
+
     const tournamentElements = tournaments.map((tournament) => {
         const profile: Thumbnail = {
             url: "/default_tournament_profile.png",
@@ -61,7 +68,7 @@ export async function TournamentList({ query, location, radius, games, currentPa
 
     return (<div className="flex flex-col items-center">
         <ul className="flex flex-col items-center">{tournamentElements}</ul>
-        <Pagination totalPages={totalPages} />
+        <ButtonPrimary onClick={loadMoreTournaments}>Load more</ButtonPrimary>
     </div>);
 }
 

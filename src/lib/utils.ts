@@ -47,3 +47,5 @@ export function generateMapsURL(address: string | null, placeId: string | null) 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
+
+export const NUMBER_OF_ENTRIES_TO_FETCH = 10;
