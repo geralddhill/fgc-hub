@@ -1,5 +1,7 @@
 'use server';
 
+import {NUMBER_OF_ENTRIES_TO_FETCH} from "@/lib/utils";
+
 export type Tournament = {
     id: number;
     name: string;
@@ -29,10 +31,10 @@ type TournamentResponse = {
     };
 }
 
-const TOURNAMENT_ENTRIES_PER_PAGE = 6;
+
 
 export async function fetchTournamentData( query: string, location: string | null, radius: string, games: Set<number>,
-                                           currentPage: number ):Promise<TournamentResponse> {
+                                           offset: number):Promise<TournamentResponse> {
     const authKey = process.env.START_GG_API_KEY;
     const url = "https://api.start.gg/gql/alpha";
     const body = {
@@ -76,8 +78,8 @@ export async function fetchTournamentData( query: string, location: string | nul
               }
             }`,
         "variables": {
-            "currentPage": currentPage,
-            "perPage": TOURNAMENT_ENTRIES_PER_PAGE,
+            "currentPage": offset,
+            "perPage": NUMBER_OF_ENTRIES_TO_FETCH,
             "searchQuery": query,
             "videogames": Array.from(games)
         }

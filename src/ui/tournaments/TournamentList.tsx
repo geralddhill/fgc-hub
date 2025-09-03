@@ -1,25 +1,43 @@
+'use client'
+
 import {fetchTournamentData, Tournament} from "@/lib/tournament-data";
 import {TournamentCard, TournamentCardSkeleton} from "@/ui/tournaments/TournamentCard";
-import Pagination from "@/ui/tournaments/Pagination";
 import {Thumbnail} from "@/lib/types";
 import {generateMapsURL} from "@/lib/utils";
+import React from "react";
+import {useInView} from "react-intersection-observer";
 
-export async function TournamentList({ query, location, radius, games, currentPage }:
-{query: string; location: string | null; radius: string; games: Set<number>; currentPage: number;}) {
-    if (location == null) {
+export function TournamentList({ query, location, radius, games, initialTournaments, locationAllowed }:
+{query: string; location: string | null; radius: string; games: Set<number>; initialTournaments: Array<Tournament>;
+    locationAllowed: boolean;}) {
+
+    const [offset, setOffset] = React.useState(2)
+    const [tournaments, setTournaments] = React.useState(initialTournaments);
+    const [ref, inView] = useInView();
+    const [noMoreEntries, setNoMoreEntries] = React.useState(false);
+
+    const loadMoreTournaments = async () => {
+        const response = await fetchTournamentData(query, location, radius, games, offset);
+        const moreTournaments = response.data?.nodes || [];
+        if (moreTournaments.length === 0) {
+            setNoMoreEntries(true);
+        }
+        setTournaments(users => [...users, ...moreTournaments])
+        setOffset(offset + 1)
+    }
+
+    React.useEffect(() => {
+        if (inView) {
+            loadMoreTournaments()
+        }
+    }, [inView])
+
+    if (!locationAllowed) {
         return (<div className="flex flex-col items-center">
             <p>Please enable your location to find local tournaments near you!</p>
         </div>)
     }
 
-    const response = await fetchTournamentData(query, location, radius, games, currentPage);
-    if (!response.data) {
-        return (<div>
-            <p>{response.message}</p>
-        </div>)
-    }
-    const totalPages = response.data.pageInfo.totalPages;
-    const tournaments: Array<Tournament> = response.data.nodes;
     const tournamentElements = tournaments.map((tournament) => {
         const profile: Thumbnail = {
             url: "/default_tournament_profile.png",
@@ -60,8 +78,11 @@ export async function TournamentList({ query, location, radius, games, currentPa
     })
 
     return (<div className="flex flex-col items-center">
-        <ul className="flex flex-col items-center">{tournamentElements}</ul>
-        <Pagination totalPages={totalPages} />
+        <ul className="flex flex-row items-center justify-center flex-wrap">{tournamentElements}</ul>
+        {!noMoreEntries && <div ref={ref}>
+            Loading...
+        </div>}
+        {/*<ButtonPrimary className="mb-4" onClick={loadMoreTournaments}>Load more</ButtonPrimary>*/}
     </div>);
 }
 
