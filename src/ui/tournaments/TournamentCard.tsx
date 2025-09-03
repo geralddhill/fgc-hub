@@ -14,7 +14,7 @@ export function TournamentCard({ name, slug, startTime, profile, banner, isOnlin
     const [expanded, setExpanded] = React.useState(false);
     const isMobile = useMediaQuery("(width < 48rem)");
 
-    const titleSize = isMobile ? 20 : 36;
+    const titleSize = isMobile ? 18 : 36;
 
     const handleClick = () => {
         setExpanded(!expanded);
@@ -47,15 +47,13 @@ export function TournamentCard({ name, slug, startTime, profile, banner, isOnlin
                            className="object-scale-down w-20 md:w-32 h-20 md:h-32 overflow-hidden rounded-lg"/>
             <div>
                 <h4 className="md:font-h4ui bold font-bui">{name.length <= titleSize ? name : name.substring(0, titleSize) + "..."}</h4>
-                <p className="inline font-pui text-mono-600 dark:text-mono-300 ">
+                <p className="font-pui text-mono-600 dark:text-mono-300 ">
                     <span>{months[startTime.getMonth()]} {startTime.getDate()}, {startTime.getFullYear()}</span>
                     <span>{" | "}</span>
-                    <span>
-                        {isOnline ? "Online" : <button className="cursor-pointer"
+                    {isOnline ? <span>Online</span> : <button className="cursor-pointer"
                                                    onClick={stopPropagation}><a href={locationURL}
                                                                                 target="_blank">{expanded ? address : `${city}, ${state}`}</a>
-                        </button>}
-                    </span>
+                    </button>}
                 </p>
                 <p className="font-pui my-2 text-color-500 dark:text-color-600 group-hover:text-mono-800 dark:group-hover:text-mono-50 transition duration-250">View
                     More</p>

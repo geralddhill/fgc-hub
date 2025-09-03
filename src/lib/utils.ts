@@ -48,4 +48,4 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
-export const NUMBER_OF_ENTRIES_TO_FETCH = 10;
+export const NUMBER_OF_ENTRIES_TO_FETCH = 16;

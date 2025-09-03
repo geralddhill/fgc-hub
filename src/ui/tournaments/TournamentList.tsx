@@ -5,7 +5,7 @@ import {TournamentCard, TournamentCardSkeleton} from "@/ui/tournaments/Tournamen
 import {Thumbnail} from "@/lib/types";
 import {generateMapsURL} from "@/lib/utils";
 import React from "react";
-import {ButtonPrimary} from "@/ui/Buttons";
+import {useInView} from "react-intersection-observer";
 
 export function TournamentList({ query, location, radius, games, initialTournaments, locationAllowed }:
 {query: string; location: string | null; radius: string; games: Set<number>; initialTournaments: Array<Tournament>;
@@ -13,18 +13,29 @@ export function TournamentList({ query, location, radius, games, initialTourname
 
     const [offset, setOffset] = React.useState(2)
     const [tournaments, setTournaments] = React.useState(initialTournaments);
+    const [ref, inView] = useInView();
+    const [noMoreEntries, setNoMoreEntries] = React.useState(false);
+
+    const loadMoreTournaments = async () => {
+        const response = await fetchTournamentData(query, location, radius, games, offset);
+        const moreTournaments = response.data?.nodes || [];
+        if (moreTournaments.length === 0) {
+            setNoMoreEntries(true);
+        }
+        setTournaments(users => [...users, ...moreTournaments])
+        setOffset(offset + 1)
+    }
+
+    React.useEffect(() => {
+        if (inView) {
+            loadMoreTournaments()
+        }
+    }, [inView])
 
     if (!locationAllowed) {
         return (<div className="flex flex-col items-center">
             <p>Please enable your location to find local tournaments near you!</p>
         </div>)
-    }
-
-    const loadMoreTournaments = async () => {
-        const response = await fetchTournamentData(query, location, radius, games, offset);
-        const moreTournaments = response.data?.nodes || [];
-        setTournaments(users => [...users, ...moreTournaments])
-        setOffset(offset + 1)
     }
 
     const tournamentElements = tournaments.map((tournament) => {
@@ -68,7 +79,10 @@ export function TournamentList({ query, location, radius, games, initialTourname
 
     return (<div className="flex flex-col items-center">
         <ul className="flex flex-row items-center justify-center flex-wrap">{tournamentElements}</ul>
-        <ButtonPrimary className="mb-4" onClick={loadMoreTournaments}>Load more</ButtonPrimary>
+        {!noMoreEntries && <div ref={ref}>
+            Loading...
+        </div>}
+        {/*<ButtonPrimary className="mb-4" onClick={loadMoreTournaments}>Load more</ButtonPrimary>*/}
     </div>);
 }
 
