@@ -2,7 +2,7 @@
 
 import {useDebouncedCallback} from "use-debounce";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import React from "react";
+import React, {useEffect} from "react";
 import RadiusSlider from "@/ui/tournaments/RadiusSlider";
 import {ButtonPrimary} from "@/ui/Buttons";
 
@@ -11,7 +11,7 @@ export default function TournamentSearch() {
     const pathname = usePathname();
     const { replace } = useRouter();
 
-    const [showRadius, setShowRadius] = React.useState<boolean>(Boolean(searchParams.get('l')));
+    const [locationAccess, setLocationAccess] = React.useState<boolean>(Boolean(searchParams.get('l')));
 
     const handleQuery = useDebouncedCallback((query: string) => {
         const params = new URLSearchParams(searchParams);
@@ -28,10 +28,11 @@ export default function TournamentSearch() {
     }, 300)
 
     const handleLocation = useDebouncedCallback(() => {
-        setShowRadius(true);
         if('geolocation' in navigator) {
             // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
             navigator.geolocation.getCurrentPosition(({ coords }) => {
+                setLocationAccess(true);
+
                 const { latitude, longitude } = coords;
                 const location = `${latitude},${longitude}`;
 
@@ -44,8 +45,17 @@ export default function TournamentSearch() {
                 params.set('p', "1")
                 replace(`${pathname}?${params.toString()}`);
             })
+        } else {
+            setLocationAccess(false);
         }
     }, 300)
+
+    useEffect(() => {
+        const params = new URLSearchParams(searchParams);
+        if (!params.get('l')) {
+            handleLocation();
+        }
+    })
 
     const handleRadius = useDebouncedCallback((value: number[]) => {
         const params = new URLSearchParams(searchParams);
@@ -66,8 +76,8 @@ export default function TournamentSearch() {
                 }}
             />
             <div className="flex flex-col items-center space-y-4">
-                <ButtonPrimary onClick={handleLocation} className="selectable">Use my location</ButtonPrimary>
-                {showRadius && <RadiusSlider defaultValue={[Number(searchParams.get('r')?.slice(0, -2) || 20)]}
+                <ButtonPrimary onClick={handleLocation} className="selectable">{locationAccess ? "Update Location" : "Use Location"}</ButtonPrimary>
+                {locationAccess && <RadiusSlider defaultValue={[Number(searchParams.get('r')?.slice(0, -2) || 20)]}
                                 onValueCommit={handleRadius}/>}
             </div>
     </div>)
