@@ -54,7 +54,7 @@ export default function VideoGameFilter() {
 
     return (<fieldset className="w-48 flex flex-col items-center space-y-4">
         <legend>
-            <ButtonPrimary className="inline-flex items-center justify-center space-x-2 selectable w-full" onClick={() => setShowList(!showList)}>
+            <ButtonPrimary className="inline-flex items-center justify-center mx-2 selectable w-full" onClick={() => setShowList(!showList)}>
                 <p>{buttonText()}</p>
                 <Chevron className={clsx("w-4 fill-current transition-transform duration-500", {
                     "-rotate-180": showList

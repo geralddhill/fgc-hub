@@ -67,8 +67,8 @@ export function TournamentList({ query, location, radius, games, initialTourname
     })
 
     return (<div className="flex flex-col items-center">
-        <ul className="flex flex-col items-center">{tournamentElements}</ul>
-        <ButtonPrimary onClick={loadMoreTournaments}>Load more</ButtonPrimary>
+        <ul className="flex flex-row items-center justify-center flex-wrap">{tournamentElements}</ul>
+        <ButtonPrimary className="mb-4" onClick={loadMoreTournaments}>Load more</ButtonPrimary>
     </div>);
 }
 

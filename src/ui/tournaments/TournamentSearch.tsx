@@ -23,7 +23,6 @@ export default function TournamentSearch() {
         }
 
 
-        params.set('p', "1")
         replace(`${pathname}?${params.toString()}`);
     }, 300)
 
@@ -42,7 +41,6 @@ export default function TournamentSearch() {
                 } else {
                     params.delete('l');
                 }
-                params.set('p', "1")
                 replace(`${pathname}?${params.toString()}`);
             })
         } else {
@@ -60,13 +58,12 @@ export default function TournamentSearch() {
     const handleRadius = useDebouncedCallback((value: number[]) => {
         const params = new URLSearchParams(searchParams);
         params.set('r', (value[0] || "20").toString() + "mi");
-        params.set('p', "1")
         replace(`${pathname}?${params.toString()}`);
     }, 300)
 
-    return (<div className="flex justify-center items-center space-x-8">
+    return (<div className="flex justify-center items-center md:flex-row flex-col">
             <input
-                className="bg-mono-200 dark:bg-mono-700 font-big py-4 px-8 rounded-3xl w-144 focus:outline-hidden
+                className="bg-mono-200 dark:bg-mono-700 font-big py-4 px-8 rounded-3xl md:w-144 w-80 focus:outline-hidden
                 focus:shadow-md/25 focus:scale-105 selectable"
                 name="query"
                 placeholder="Search for tournaments"
@@ -75,7 +72,7 @@ export default function TournamentSearch() {
                     handleQuery(e.target.value);
                 }}
             />
-            <div className="flex flex-col items-center space-y-4">
+            <div className="flex flex-col items-center space-y-4 md:mx-8 md:my-0 mx-0 my-8">
                 <ButtonPrimary onClick={handleLocation} className="selectable">{locationAccess ? "Update Location" : "Use Location"}</ButtonPrimary>
                 {locationAccess && <RadiusSlider defaultValue={[Number(searchParams.get('r')?.slice(0, -2) || 20)]}
                                 onValueCommit={handleRadius}/>}
