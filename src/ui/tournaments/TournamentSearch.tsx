@@ -57,7 +57,7 @@ export default function TournamentSearch() {
 
     const handleRadius = useDebouncedCallback((value: number[]) => {
         const params = new URLSearchParams(searchParams);
-        params.set('r', (value[0] || "20").toString() + "mi");
+        params.set('r', (value[0] || 20).toString());
         replace(`${pathname}?${params.toString()}`);
     }, 300)
 

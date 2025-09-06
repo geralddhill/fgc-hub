@@ -17,7 +17,7 @@ export function TournamentList({ query, location, radius, games, initialTourname
     const [noMoreEntries, setNoMoreEntries] = React.useState(false);
 
     const loadMoreTournaments = async () => {
-        const response = await fetchTournamentData(query, location, radius, games, offset);
+        const response = await fetchTournamentData({query, location, radius, games, offset});
         const moreTournaments = response.data?.nodes || [];
         if (moreTournaments.length === 0) {
             setNoMoreEntries(true);
