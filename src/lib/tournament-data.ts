@@ -1,40 +1,58 @@
 'use server';
 
 import {NUMBER_OF_ENTRIES_TO_FETCH} from "@/lib/utils";
+import *  as z from "zod";
 
-export type Tournament = {
-    id: number;
-    name: string;
-    slug: string;
-    startAt: number;
-    images: Array<{
-        type: "profile" | "banner";
-        url: string;
-        width: number;
-        height: number;
-    }>;
-    city: string | null;
-    addrState: string | null;
-    countryCode: string | null;
-    isOnline: boolean;
-    venueAddress: string | null;
-    mapsPlaceId: string | null;
-}
+const Image = z.object({
+    type: z.literal(["profile", "banner"]),
+    url: z.string(),
+    width: z.number(),
+    height: z.number(),
+})
+
+const Tournament = z.object({
+    id: z.number(),
+    name: z.string(),
+    slug: z.string(),
+    startAt: z.number(),
+    images: z.array(Image),
+    city: z.nullable(z.string()),
+    addrState: z.nullable(z.string()),
+    countryCode: z.nullable(z.string()),
+    isOnline: z.boolean(),
+    venueAddress: z.nullable(z.string()),
+    mapsPlaceId: z.nullable(z.string())
+})
+
+export type Tournament = z.infer<typeof Tournament>;
+
+const StartggResponse = z.object({
+    pageInfo: z.object({
+        totalPages: z.number()
+    }),
+    nodes: z.array(Tournament)
+})
 
 type TournamentResponse = {
     message: string;
-    data?: {
-        pageInfo: {
-            totalPages: number;
-        },
-        nodes: Array<Tournament>
-    };
+    data?: z.infer<typeof StartggResponse>;
 }
 
+const ZodTournamentQuery = z.object({
+    query: z.string(),
+    location: z.nullable(z.string()),
+    radius: z.coerce.number(),
+    games: z.set(z.number()),
+    offset: z.number(),
+})
+
+type TournamentQuery = z.infer<typeof ZodTournamentQuery>;
 
 
-export async function fetchTournamentData( query: string, location: string | null, radius: string, games: Set<number>,
-                                           offset: number):Promise<TournamentResponse> {
+
+export async function fetchTournamentData( tournamentQuery: TournamentQuery):Promise<TournamentResponse> {
+    const {query, location, radius, games, offset} = ZodTournamentQuery.parse(tournamentQuery);
+
     const authKey = process.env.START_GG_API_KEY;
     const url = "https://api.start.gg/gql/alpha";
     const body = {
@@ -49,7 +67,7 @@ export async function fetchTournamentData( query: string, location: string | nul
                   afterDate: ${Math.round(Date.now() / 1000)}
                   ${location ? `location: {
                     distanceFrom: "${location}",
-                    distance: "${radius}"
+                    distance: "${radius}mi"
                   }` : ""}
                   videogameIds: $videogames
                 }
@@ -104,10 +122,24 @@ export async function fetchTournamentData( query: string, location: string | nul
 
         const json = await response.json();
         // console.log(json);
-        return {
-            message: "Tournaments fetched successfully.",
-            data: json.data.tournaments
-        };
+
+        try {
+            const tournaments = StartggResponse.parse(json.data.tournaments);
+            return {
+                message: "Tournaments fetched successfully.",
+                data: tournaments
+            };
+        } catch (error) {
+            if(error instanceof z.ZodError) {
+                console.error("ZodError:", error)
+            } else {
+                console.error(error)
+            }
+
+            return {
+                message: 'Failed to fetch tournaments.'
+            };
+        }
     }
     catch (error) {
         console.error('start.gg API Error:', error);

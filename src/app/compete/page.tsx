@@ -15,17 +15,17 @@ export default async function Page(props: {
     searchParams?: Promise<{
         q?: string;
         l?: string;
-        r?: string;
+        r?: number;
         g?: string;
     }>;
 }) {
     const searchParams = await props.searchParams;
     const query = searchParams?.q || "";
     const location = searchParams?.l || null;
-    const radius = searchParams?.r || "20mi";
+    const radius = searchParams?.r || 20;
     const games: Set<number> = new Set(JSON.parse(searchParams?.g || "[]"))
 
-    const response = await fetchTournamentData(query, location, radius, games, 1);
+    const response = await fetchTournamentData({query, location, radius, games, offset: 1});
     if (!response.data) {
         return (<div>
             <p>{response.message}</p>

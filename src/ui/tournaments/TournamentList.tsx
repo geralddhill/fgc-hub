@@ -8,7 +8,7 @@ import React from "react";
 import {useInView} from "react-intersection-observer";
 
 export function TournamentList({ query, location, radius, games, initialTournaments, locationAllowed }:
-{query: string; location: string | null; radius: string; games: Set<number>; initialTournaments: Array<Tournament>;
+{query: string; location: string | null; radius: number; games: Set<number>; initialTournaments: Array<Tournament>;
     locationAllowed: boolean;}) {
 
     const [offset, setOffset] = React.useState(2)
@@ -17,7 +17,7 @@ export function TournamentList({ query, location, radius, games, initialTourname
     const [noMoreEntries, setNoMoreEntries] = React.useState(false);
 
     const loadMoreTournaments = async () => {
-        const response = await fetchTournamentData(query, location, radius, games, offset);
+        const response = await fetchTournamentData({query, location, radius, games, offset});
         const moreTournaments = response.data?.nodes || [];
         if (moreTournaments.length === 0) {
             setNoMoreEntries(true);
