@@ -1,0 +1,145 @@
+@import "../../node_modules/tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-lexend);
+  --ff: var(--font-sans);
+  --h1: 600 4rem/1em var(--ff);
+  --h2: 600 3rem/1.2em var(--ff);
+  --h3: 600 2.25rem/1.2em var(--ff);
+  --h4: 600 1.5rem/1.6em var(--ff);
+  --big: 1.25rem/1.6em var(--ff);
+  --p: 1rem/1.6em var(--ff);
+  --small: .75rem/2em var(--ff);
+
+  --h1ui: 600 3rem/1.2em var(--ff);
+  --h2ui: 600 2.25rem/1.2em var(--ff);
+  --h3ui: 600 1.5rem/1.2em var(--ff);
+  --h4ui: 600 1.12rem/1.6em var(--ff);
+  --bigui: 1rem/1.6em var(--ff);
+  --pui: .8rem/1.6em var(--ff);
+  --smallui: .75rem/1.8em var(--ff);
+
+  --color-transparent: transparent;
+  --color-mono-50: var(--color-stone-50);
+  --color-mono-100: var(--color-stone-100);
+  --color-mono-200: var(--color-stone-200);
+  --color-mono-300: var(--color-stone-300);
+  --color-mono-400: var(--color-stone-400);
+  --color-mono-500: var(--color-stone-500);
+  --color-mono-600: var(--color-stone-600);
+  --color-mono-700: var(--color-stone-700);
+  --color-mono-800: var(--color-stone-800);
+  --color-mono-900: var(--color-stone-900);
+  --color-mono-950: var(--color-stone-950);
+  --color-color-50: var(--color-red-50);
+  --color-color-100: var(--color-red-100);
+  --color-color-200: var(--color-red-200);
+  --color-color-300: var(--color-red-300);
+  --color-color-400: var(--color-red-400);
+  --color-color-500: var(--color-red-500);
+  --color-color-600: var(--color-red-600);
+  --color-color-700: var(--color-red-700);
+  --color-color-800: var(--color-red-800);
+  --color-color-900: var(--color-red-900);
+  --color-color-950: var(--color-red-950);
+
+  --shadow-lg-light: 0 10px 15px -3px rgb(255 255 255 / 0.1), 0 4px 6px -4px rgb(255 255 255 / 0.1);
+  --shadow-xl-light: 0 20px 25px -5px rgb(255 255 255 / 0.1), 0 8px 10px -6px rgb(255 255 255 / 0.1);
+}
+
+@layer utilities {
+  .font-h1 {
+    font: var(--h1);
+    @apply my-2;
+  }
+  .font-h2 {
+    font: var(--h2);
+    @apply my-2;
+  }
+  .font-h3 {
+    font: var(--h3);
+    @apply my-2;
+  }
+  .font-h4 {
+    font: var(--h4);
+    @apply my-2;
+  }
+  .font-big {
+    font: var(--big);
+    @apply my-2;
+  }
+  .font-p {
+    font: var(--p);
+    @apply my-2;
+  }
+  .font-small {
+    font: var(--small);
+    @apply my-2;
+  }
+  .font-h1ui {
+    font: var(--h1ui);
+    @apply my-2;
+  }
+  .font-h2ui {
+    font: var(--h2ui);
+    @apply my-2;
+  }
+  .font-h3ui {
+    font: var(--h3ui);
+    @apply my-2;
+  }
+  .font-h4ui {
+    font: var(--h4ui);
+    @apply my-2;
+  }
+  .font-bigui {
+    font: var(--bigui);
+    @apply my-2;
+  }
+  .font-pui {
+    font: var(--pui);
+    @apply my-2;
+  }
+  .font-smallui {
+    font: var(--smallui);
+    @apply my-2;
+  }
+}
+
+@layer base {
+  :root {
+    box-sizing: border-box;
+  }
+  * {
+    box-sizing: inherit;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    text-wrap: balance;
+    font-family: var(--ff);
+    @apply bg-mono-50 text-mono-800 dark:bg-mono-800 dark:text-mono-50;
+  }
+  .selectable {
+    transition: box-shadow 250ms, scale 250ms;
+    @apply shadow-md/10;
+  }
+  .selectable:hover {
+    @apply shadow-md/25 scale-105;
+  }
+}
+
+@keyframes cardFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.fade-in {
+  animation-name: cardFadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
