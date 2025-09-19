@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../ui/globals.css";
 import {lexend} from "@/ui/fonts";
 import Navbar from "@/ui/Navbar";
+import Footer from "@/ui/Footer";
 
 export const metadata: Metadata = {
   title: {
@@ -16,16 +17,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html
-        lang="en"
-        className={`${lexend.variable} antialiased`}>
-      <body>
-      <Navbar/>
-      <main className="mt-32 md:mt-40">
-          {children}
-      </main>
-      </body>
-    </html>
-  );
+    return (
+        <html
+            lang="en"
+            className={`${lexend.variable} antialiased`}>
+        <body className="min-h-screen flex flex-col">
+            <Navbar/>
+            <main className="mt-32 md:mt-40 min-h-full">
+                {children}
+            </main>
+            <Footer/>
+        </body>
+        </html>
+    );
 }
