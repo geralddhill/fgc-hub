@@ -4,9 +4,7 @@ FGC Hub is a website that allows people who love fighting games to engage with t
 
 ## Motivation
 
-Engaging with the fighting game community has allowed me to make lots of friends and given me a third place in my life. Unfortunately, all of the resource that the FGC uses are scattered across the internet. FGC Hub aims to put all of those resources in one place.
-
-The main pillars of FGC Hub are Play, Watch, Learn, and Compete. Play aims to help users who are new to fighting games find a game to play. Watch provides users with tournament and community streams. Learn provides resources to help users learn their respective fighting game. Compete allows users to search for tournaments and events near them.
+Engaging with the fighting game community has allowed me to make lots of friends and given me a third place in my life. Unfortunately, finding tournaments near me by location is very difficult with start.gg's current search setup, so I created FGC Hub to allow users to find tournaments near their current location.
 
 ## Usage
 
