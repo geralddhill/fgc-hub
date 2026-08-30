@@ -53,11 +53,16 @@ export default function Navbar() {
         }
     }, [isMobileMenuOpen])
 
-    const navLinks = [
+    const navLinks: {
+        href: string;
+        label: string;
+    }[] = [
+        /*
         {href: "/play", label: "Play"},
         {href: "/watch", label: "Watch"},
         {href: "/learn", label: "Learn"},
         {href: "/compete", label: "Compete"},
+         */
     ]
 
 
@@ -85,14 +90,16 @@ export default function Navbar() {
                         </Link>
                     </li>
                 ))}
-                <li className="md:h-full h-8 flex items-center my-2 md:ml-auto"
-                    aria-current={pathname === "/" ? "page" : "false"} hidden={isMobile && !isMobileMenuOpen}>
-                    <ButtonPrimary className="py-0 px-8 hover:shadow-xl transition-shadow">
-                        <Link href="/login">
-                            <h2 className="font-h4">Login</h2>
-                        </Link>
-                    </ButtonPrimary>
-                </li>
+                {/*
+                    <li className="md:h-full h-8 flex items-center my-2 md:ml-auto"
+                        aria-current={pathname === "/" ? "page" : "false"} hidden={isMobile && !isMobileMenuOpen}>
+                        <ButtonPrimary className="py-0 px-8 hover:shadow-xl transition-shadow">
+                            <Link href="/login">
+                                <h2 className="font-h4">Login</h2>
+                            </Link>
+                        </ButtonPrimary>
+                    </li>
+                */}
             </ul>
         </nav>
         <button className="h-4 ml-auto z-51 mt-2 md:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
